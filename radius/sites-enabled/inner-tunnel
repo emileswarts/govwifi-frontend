@@ -4,7 +4,7 @@ authorize {
 #		ok = return
 #	}
 
-  authorized_macs
+  authorised_macs
 
   if (!ok) {
     reject

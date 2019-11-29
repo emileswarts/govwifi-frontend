@@ -22,7 +22,7 @@ authorize {
 	eap {
 		ok = return
 	}
-  authorized_macs
+  authorised_macs
 
   if (!ok) {
     # No match was found, so reject
