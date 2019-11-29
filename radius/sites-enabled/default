@@ -1,20 +1,11 @@
 server default {
 listen {
         type = auth
-
-
         ipaddr = *
-
         port = 0
-
-
-
         limit {
               max_connections = 64
-
-
               lifetime = 0
-
               idle_timeout = 30
         }
 }
@@ -23,9 +14,7 @@ listen {
         ipaddr = *
         port = 0
         type = acct
-
         limit {
-
         }
 }
 
@@ -33,6 +22,19 @@ authorize {
 	eap {
 		ok = return
 	}
+  authorized_macs
+
+  if (!ok) {
+    # No match was found, so reject
+    reject
+  }
+  else {
+    # The MAC address was found, so update Auth-Type
+    # to accept this auth.
+    update control {
+      Auth-Type := Accept
+    }
+  }
 }
 authenticate {
 	eap
@@ -44,12 +46,6 @@ accounting {
 session {
 }
 post-auth {
- if (EAP-Type == TLS)  {
-   redundant {
-     rest
-     ok
-   }
- }
 }
 pre-proxy {
 }
