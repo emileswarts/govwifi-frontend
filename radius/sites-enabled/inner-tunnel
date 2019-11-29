@@ -1,27 +1,31 @@
 server inner-tunnel {
 authorize {
-	filter_username
-	eap {
-		ok = return
-	}
-	rest
+#	eap {
+#		ok = return
+#	}
+
+  authorized_macs
+
+  if (!ok) {
+    reject
+  }
+  else {
+    update control {
+      Auth-Type := Accept
+    }
+  }
 }
 authenticate {
-	Auth-Type MS-CHAP {
-		mschap
-	}
 	eap
 }
 session {
 }
 post-auth {
   redundant {
-    rest
     ok
   }
   Post-Auth-Type REJECT {
     redundant {
-      rest
       fail
     }
   }
