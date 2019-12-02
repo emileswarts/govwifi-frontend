@@ -19,21 +19,18 @@ listen {
 }
 
 authorize {
-	eap {
-		ok = return
-	}
+if (!EAP-Message) {
   authorised_macs
 
   if (!ok) {
-    # No match was found, so reject
     reject
-  }
-  else {
-    # The MAC address was found, so update Auth-Type
-    # to accept this auth.
-    update control {
-      Auth-Type := Accept
+  } else {
+      update control {
+        Auth-Type := Accept
+      }
     }
+  } else {
+    eap
   }
 }
 authenticate {

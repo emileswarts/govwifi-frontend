@@ -4,35 +4,35 @@ authorize {
 #		ok = return
 #	}
 
-  authorised_macs
+  # authorised_macs
 
-  if (!ok) {
-    reject
-  }
-  else {
-    update control {
-      Auth-Type := Accept
-    }
-  }
+#  if (!ok) {
+#    reject
+#  }
+#  else {
+#    update control {
+#      Auth-Type := Accept
+#    }
+#  }
 }
 authenticate {
-	eap
+	#eap
 }
 session {
 }
 post-auth {
-  redundant {
-    ok
-  }
-  Post-Auth-Type REJECT {
-    redundant {
-      fail
-    }
-  }
+#  redundant {
+#    ok
+#  }
+#  Post-Auth-Type REJECT {
+#    redundant {
+#      fail
+#    }
+#  }
 }
 pre-proxy {
 }
 post-proxy {
-	eap
+	#eap
 }
 }
